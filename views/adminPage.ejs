@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="/project.css" />
+</head>
+<body>
+  <nav style="background-color:  #654128; padding: 10px; display: flex; justify-content: flex-start;">
+    <a href="/" class="btn">Home</a>
+    <a href="/customer" class="btn">Store</a>
+    <% if (role === 'superadmin') { %>
+        <a href="/adminControl" class="btn">Admins</a>
+    <% } %>
+    <a href="/weather"class="btn">Weather</a>
+  </nav>
+
+   
+  <div class="container">
+    <h2><%= role === 'superadmin' ? 'Super Admin Panel' : 'Admin Panel' %></h2>
+
+    <div class="SearchBox">
+      <form action="/addItem" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Item Name" required /><br><br>
+        <input type="text" name="price" placeholder="Price" required /><br><br>
+        <input type="file" name="image" accept="image/*" required /><br><br><br>
+        <button class="btn" type="submit">Add New Item</button>
+      </form>
+    </div>
+
+
+
+    <br><h3>Menu Items</h3>
+
+    <div id="menuList">
+      <% items.forEach(item => { %>
+        <div class="product">
+          <img src="<%= item.image %>" width="100" style="vertical-align: middle; margin-right: 10px;"><br><br>
+          <span><%= item.name %> - <%= item.price %> JD</span><br><br>
+
+          <% if (role === 'superadmin') { %>
+            <form action="/deleteItem/<%= item.id %>" method="POST" onsubmit="return confirm('Are you sure?')">
+                <button class="btn" type="submit">Delete</button>
+              </form>
+               
+          <% } %>
+          
+ 
+
+          <hr>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+  <!-- <form action="/logout" method="get">
+    <button class="btn" type="submit">Logout</button>
+  </form> -->
+</body>
+</html>

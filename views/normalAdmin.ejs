@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>Admin Page</title>
+   
+</head>
+<body>
+
+   <header>Admin Panel - Add Items</header>
+    <div class="container">
+    <div class="SearchBox">
+        
+            <form action="/addItems" method="POST" enctype="multipart/form-data">
+                <!-- <input type="hidden" name="role" value="admin"> -->
+
+              <input type="text" name="name" placeholder="Item Name" required><br><br>
+              <input type="text" name="price" placeholder="Price" required><br><br>
+              <input type="file" id="image" name="image" accept="image/*" required><br> <br><br>
+              <!-- <input type="submit" value="Add New Item"> -->
+              <button class="btn" type="submit">Add New Item</button>
+              </form>
+
+    </div>    
+
+        <br>
+        <h3>Menu Items</h3>
+
+        <div >
+          <h4 id="menuList"></h4>
+        </div>
+    </div>
+
+
+
+    <script>
+        function displayMenu() {
+            fetch('/items')  
+                .then(response => response.json())
+                .then(data => {
+                    const menuList = document.getElementById("menuList");
+                    menuList.innerHTML = "";
+    
+                    data.forEach((item) => {
+                        const div = document.createElement("div");
+                        div.classList.add("product");
+                        div.innerHTML = `
+                            <img src="${item.image}"  width="100" style="vertical-align: middle; margin-right: 10px;"><br><br>
+                            <span>${item.name} - ${item.price} JD</span><br>
+                           
+                        `;
+                        menuList.appendChild(div);
+                    });
+                })
+                .catch(error => console.error('Error loading menu:', error));
+        }
+    
+       
+    
+        displayMenu();
+    </script>
+    
+    
+
+
+</body>
+</html>

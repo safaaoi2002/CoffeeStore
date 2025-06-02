@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>Confirm Order</title>
+</head>
+<body>
+  <header></header>
+    <h2>Confirm Your Order</h2>
+    <form id="orderForm">
+      <label>Your name:</label>
+      <input type="text" id="name" required><br><br>
+  
+      <label>Your email:</label>
+      <input type="email" id="email" required><br><br>
+  
+      <label>Your phone:</label>
+      <input type="text" id="phone" required><br><br>
+  
+      <label>Payment method:</label>
+      <select id="payment">
+        <option value="Cash">Cash</option>
+        <option value="Card">Card</option>
+      </select><br><br>
+  
+      <button type="submit">Confirm & Pay</button>
+    </form>
+  
+    <script>
+        document.getElementById("orderForm").addEventListener("submit", function(e) {
+          e.preventDefault(); // يمنع الإرسال التقليدي
+          confirmOrder();    
+        });
+      
+        async function confirmOrder() {
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const payment = document.getElementById("payment").value;
+      
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const totalPrice = parseFloat(localStorage.getItem("totalPrice")) || 0;
+      
+          const response = await fetch("/submit-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              email,
+              phone,
+              payment,
+              cartItems: cart,
+              totalPrice
+            })
+          });
+      
+          if (response.ok) {
+            localStorage.removeItem("cart");
+            localStorage.removeItem("totalPrice");
+            window.location.href = "/page3";
+          } else {
+            alert("Error submitting order");
+          }
+        }
+      </script>
+      
+      
+  </body>
+</html>

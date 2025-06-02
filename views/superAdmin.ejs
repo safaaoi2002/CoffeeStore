@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>Super Admin Page (items)</title>
+   
+</head>
+<body>
+
+   <header>Super Admin Panel - Manage Items</header>
+    <div class="container">
+    <div class="SearchBox">
+    
+            <form action="/addItem" method="POST" enctype="multipart/form-data">
+              <input type="text" name="name" placeholder="Item Name" required><br><br>
+              <input type="text" name="price" placeholder="Price" required><br><br>
+              <input type="file" id="image" name="image" accept="image/*" required><br> <br><br>
+              <!-- <input type="submit" value="Add New Item"> -->
+              <button class="btn" type="submit">Add New Item</button>
+            </form>
+    </div>    
+        <br>
+        <h3>Menu Items</h3>
+        <div >
+          <h4 id="menuList"></h4>
+        </div>
+        <br>
+
+
+        <!-- <h2>Add Admins</h2>
+    <div class="SearchBox">
+        <form action="/addAdmin" method="POST">
+          
+
+          <input type="text" name="name" placeholder="name" required>
+          <input type="email" name="email" placeholder="email" required>
+          <button class="btn" type="submit">add admin</button>
+        </form>
+    </div>
+    </div> -->
+
+
+
+    <script>
+        function displayMenu() {
+            fetch('/items')  
+                .then(response => response.json())
+                .then(data => {
+                    const menuList = document.getElementById("menuList");
+                    menuList.innerHTML = "";
+    
+                    data.forEach((item) => {
+                        const div = document.createElement("div");
+                        div.classList.add("product");
+                        div.innerHTML = `
+                            <img src="${item.image}"  width="100" style="vertical-align: middle; margin-right: 10px;"><br><br>
+                            <span>${item.name} - ${item.price} JD</span><br>
+                            <button class="srchbtn" onclick="deleteItem(${item.id})" style="margin-left: 10px;">Delete</button>
+                            <hr>
+                        `;
+                        menuList.appendChild(div);
+                    });
+                })
+                .catch(error => console.error('Error loading menu:', error));
+        }
+    
+        function deleteItem(id) {
+            fetch(`/deleteItem/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    displayMenu(); // إعادة تحميل القائمة بعد الحذف
+                } else {
+                    console.error('Failed to delete item');
+                }
+            });
+            alert("Are you sure you want to delete this item?")
+        }
+    
+        displayMenu();
+    </script>
+    
+
+    
+</body>
+
+</html>

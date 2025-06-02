@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    
+    <title>Document</title>
+</head>
+<body>
+ 
+    <nav style="background-color: rgb(150, 137, 163); padding: 10px; display: flex; gap: 20px;">
+        <a href="/" class="<%= page === 'login' ? 'active' : '' %>">Home</a>
+        <a href="/customer" class="<%= page === 'store' ? 'active' : '' %>">Store</a>
+        <a href="/cart" class="<%= page === 'cart' ? 'active' : '' %>">Cart </a>
+        <a href="/admin" class="<%= page === 'admin' ? 'active' : '' %>">Admin</a>
+      </nav>
+      
+      
+   
+</body>
+</html>

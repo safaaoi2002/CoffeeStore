@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/project.css">
+  <title>Admin - Orders</title>
+
+</head>
+<body>
+  <header>All Orders</header>
+
+  <% let printedOrderIds = []; %>
+
+  <% orders.forEach(order => { %>
+    <% if (!printedOrderIds.includes(order.order_id)) { %>
+      <div class="productt">
+        <div class="order">
+        <h2>Order ID: <%= order.order_id %></h2>
+        </div>
+        <p>Name: <%= order.customer_name %></p>
+        <p>Email: <%= order.email %></p>
+        <p>Phone: <%= order.phone %></p>
+        <p>Payment: <%= order.payment %></p>
+       
+        <%let total = 0;
+        orders.forEach(o => {
+        if (o.order_id === order.order_id) {
+        total += o.price * o.quantity;
+         }
+        });
+        %>
+    <p>Total Price: <%= total %> JD</p>
+
+
+        <p>Items:</p>
+        <ul>
+          <% orders.forEach(o => {
+            if (o.order_id === order.order_id) { %>
+              <li><%= o.item_name %> (x<%= o.quantity %>) - <%= o.price %> JD</li>
+          <% }}); %>
+        </ul>
+
+        <form action="/deleteOrder/<%= order.order_id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this order?');">
+         <br> <button class="btn" type="submit">Delete Order</button>
+        </form>
+      </div>
+      <hr>
+      <% printedOrderIds.push(order.order_id); %>
+    <% } %>
+  <% }); %>
+</body>
+</html>

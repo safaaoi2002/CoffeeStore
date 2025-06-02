@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>login</title>
+</head>
+<body>
+<header>
+  <nav style="background-color:  #654128; padding: 10px; display: flex; justify-content: flex-start;">
+    <a href="/" class="btn"> Home</a>
+    <a href="/customer" class="btn"> Store</a>
+    <a href="/weather"class="btn">Weather</a>
+
+  </nav>
+
+</header>
+
+    <br><br><br>
+ 
+    
+    
+    <div class="SearchBox">
+     
+    <form class="" action="/login" method="POST">
+        <input type="text" name="name" placeholder="Name" required />
+        <br><br>
+        <input type="email" name="email" placeholder="Email" required />
+        <br><br>
+        <button class="btn" type="submit">Login</button>
+      </form>
+    </div>
+    <br><br>
+    <br><br>
+
+     <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+      <div style="
+        background-image: url('/img/weather.PNG');
+        background-size: cover;
+        background-position: center;
+        width: 350px;
+        height: 200px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* backdrop-filter: blur(2px); */
+      ">
+        <p style="
+          color: white;
+          font-size: 20px;
+        ">
+          Current Temperature: <%= temperatureNow %>°C 🌤
+        </p>
+      </div>
+    </div>
+
+    <h3>🧠 Today's Advice:</h3>
+    <p><%= advice %></p>
+    
+</body>
+</html>

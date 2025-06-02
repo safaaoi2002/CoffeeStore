@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>api</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color:  #fcf3e2; padding: 30px;">
+  <nav style="background-color:  #654128; padding: 10px; display: flex; justify-content: flex-start;">
+    <a href="/" class="btn"> Home</a>
+    <a href="/customer" class="btn"> Store</a>
+    <a href="/weather"class="btn">Weather</a>
+    
+    
+
+  </nav>
+  <br><br><br>
+  <h1 style="text-align: center; color: #333;">Today's Weather</h1>
+
+  <div style="
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+  ">
+    <ul style="list-style: none; padding: 0;">
+      <% for (let i = 0; i < weather.hourly.temperature_2m.length; i++) { %>
+        <li style="
+          padding: 10px;
+          border-bottom: 1px solid #db3939;
+          display: flex;
+          justify-content: space-between;
+          font-size: 16px;
+        ">
+          <span><strong><%= weather.hourly.time[i] %></strong></span>
+          <span><%= weather.hourly.temperature_2m[i] %>°C  🌤</span>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</body>
+
+</html>

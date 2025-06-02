@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Orders Chart</title>
+  <link rel="stylesheet" href="/project.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    header {
+    /* background-color: #79543a; */
+    background-image: url("../img/background.PNG");
+    color: white;
+    padding: 50px;
+    font-size: 50px;
+    }
+    body {
+      /* font-family: Arial, sans-serif; */
+      /* padding: 30px; */
+      background: #faebd6;
+      background: #9e7a5d;
+    }
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: rgb(255, 255, 255);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    canvas {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+    <header> Orders Chart </header>
+
+  <div class="container">
+    <h2>bar chart</h2>
+    <canvas id="ordersChart"></canvas>
+  </div>
+
+
+  <div class="container">
+    <h2>bie chart</h2>
+    <canvas id="myPieChart" ></canvas>
+  </div>
+
+  
+  <script>
+    const chartData = <%- JSON.stringify(chartData) %>;
+    
+
+    const labels = chartData.map(item => item.item_name);
+    const data = chartData.map(item => item.total_quantity);
+
+    const ctx = document.getElementById('ordersChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Quantity Ordered',
+          data: data,
+          backgroundColor: '#8a5a3891',
+          borderColor: 'black',
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0 
+            }
+          }
+        }
+      }
+    });
+
+
+
+  const data2 = {
+  labels: labels,
+  datasets: [{
+      label: 'Quantity Ordered',
+      data: data,
+      backgroundColor: [
+          'rgb(88, 68, 51)',
+          '#faebd6',
+          'rgb(226, 189, 146)',
+          '#9e7a6d'
+        ],
+      borderColor: 'black',
+      borderWidth: 1,
+    }]
+   };
+
+    const config = {
+     type: 'pie',
+     data: data2,
+    };
+
+    const myPieChart = new Chart(
+      document.getElementById('myPieChart'),
+     config
+     );
+
+     
+
+  </script>
+</body>
+</html>

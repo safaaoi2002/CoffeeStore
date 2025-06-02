@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>Your cart</title>
+</head>
+<body>
+  <nav style="background-color:  #654128; padding: 10px; display: flex; justify-content: flex-start;">
+    <a href="/" class="btn"> Home</a>
+    <a href="/customer" class="btn"> store</a>
+    <a href="/weather"class="btn">Weather</a>
+</nav>
+   <br><br><br>
+
+      
+    <header> </header>
+      
+        <h2>Your Cart</h2>
+      
+        <table border="1" id="cartTable">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Price (JD)</th>
+              <th>Subtotal (JD)</th>
+            </tr>
+          </thead>
+          <tbody id="cartBody"></tbody>
+        </table>
+      
+        <h3 id="totalPrice">Total: 0 JD</h3>
+      
+        <button class="btnn" onclick="goToConfirm()">Pay Now</button>
+        <button class="btnn" onclick="clearCart()">Clear Cart</button>
+        <br><br><br>
+      
+        <script>
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const tableBody = document.getElementById("cartBody");
+          let total = 0;
+      
+          cart.forEach(item => {
+            const row = document.createElement("tr");
+            const subtotal = item.quantity * item.product_price;
+            row.innerHTML = `
+              <td>${item.product_name}</td>
+              <td>${item.quantity}</td>
+              <td>${item.product_price}</td>
+              <td>${subtotal}</td>
+            `;
+            total += subtotal;
+            tableBody.appendChild(row);
+          });
+      
+          document.getElementById("totalPrice").innerText = `Total: ${total} JD`;
+          localStorage.setItem("totalPrice", total);
+      
+          function clearCart() {
+            localStorage.removeItem("cart");
+            alert("Cart cleared!");
+            location.reload();
+          }
+      
+          function goToConfirm() {
+            if (cart.length === 0) {
+              alert("Cart is empty!");
+              return;
+            }
+            window.location.href = "/page2";
+          }
+        </script>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/project.css">
+
+    <title>Online coffee store</title>
+</head>
+<body>
+    <header>☕ COFFEE STORE ☕</header>
+    
+    <div class="container">
+        <div class="SearchBox">
+            
+            <input type="text" id="search" placeholder="Find your favorite coffee...">
+            <button class="srchbtn" >search</button>
+            <br><br>
+        </div>
+            
+            <!-- <div>
+                <a href="ToDoList.html" target=_blank >Go to Page 2</a>
+              
+            </div> -->
+        
+
+        <div class="product">
+            <img src="../views/img/Americano.PNG" alt="Americano">
+            <h3>Americano</h3>
+            <select id="suger"name ="suger">
+                <option value="no_suger">no suger</option>
+                <option value="normal_suger">normal suger</option>
+                <option value="extra_suger">extra suger</option>
+            </select>
+            <br>
+            <p>price:2.00 JD</p>
+            <button class="btn">Order now</button>
+        </div>
+
+        <div class="product">
+            <img src="../views/img/Espresso.PNG" alt="Espresso">
+            <h3>Espresso</h3>
+            
+            <!-- <label for="suger"> choose your suger level</label> -->
+            <select id="suger"name ="suger">
+                <option value="no_suger">no suger</option>
+                <option value="normal_suger">normal suger</option>
+                <option value="extra_suger">extra suger</option>
+            </select>
+            <br>
+            <p>price:3.00 JD</p>
+            <button class="btn">Order now</button>
+        </div>
+
+        <div class="product">
+            <img src="../views/img/latte.PNG" alt="latte">
+            <h3>latte</h3>
+            
+            <!-- <label for="suger"> choose your suger level</label> -->
+            <select id="suger"name ="suger">
+                <option value="no_suger">no suger</option>
+                <option value="normal_suger">normal suger</option>
+                <option value="extra_suger">extra suger</option>
+            </select>
+            <br>
+            <p>price:3.00 JD </p>
+            <button class="btn">Order now</button>
+        </div>
+        <div class="product">
+            <img src="../views/img/cappuccino.PNG" alt="cappauccino">
+            <h3>cappauccino</h3>
+           
+
+            <select id="suger"name ="suger">
+                <option value="no_suger">no suger</option>
+                <option value="normal_suger">normal suger</option>
+                <option value="extra_suger">extra suger</option>
+            </select>
+            <br>
+            <p>price:3.00 JD </p>
+            <button class="btn">Order now</button>
+        </div>
+
+        <div class="sale">
+            <label for="">اشترك الآن للحصول على كوبون خصم 10% على اول طلب لك"</label>
+            <br>
+            <input type="email" placeholder="enter your email"required  >
+            <br>
+            <button class="srchbtn">subscribe</button>
+        </div>
+    </div>
+    
+<div>
+    <p>follow us on our social media accounts below :</p>
+    <br>
+    <a href="https://www.instagram.com/safaa.irshedat02?igsh=NGdiMzJzMWRhcjU3"target=_blank>instagram</a>
+    <br>
+    <a href="https://www.instagram.com/safaa.irshedat02?igsh=NGdiMzJzMWRhcjU3"target=_blank>facebook</a>
+    
+</div>
+
+<script>
+   //search 
+        const searchInput = document.getElementById("search");
+        const searchButton = document.querySelector(".srchbtn");
+        const products = document.querySelectorAll(".product");
+
+        searchButton.addEventListener("click", function () {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            products.forEach(product => {
+                const productName = product.querySelector("h3").textContent.toLowerCase();
+                if (productName.startsWith(searchTerm)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                   
+                }
+            });
+        });
+    
+
+    //order
+//     document.querySelectorAll(".btn").forEach(button => {
+//     button.addEventListener("click", function () {
+//         window.location.href = "checkout.html";
+//     });
+// });
+
+</script>    
+</body>
+</html>

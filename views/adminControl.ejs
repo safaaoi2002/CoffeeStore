@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project.css">
+    <title>Admin Management</title>
+</head>
+<body>
+  <nav style="background-color:  #654128; padding: 10px; display: flex; justify-content: flex-start;">
+
+  </nav>
+    <header>Add Normal Admins</header>
+    <div class="SearchBox">
+        <form action="/addAdmin" method="POST">
+          <input type="text" name="name" placeholder="name" required>
+          <br><br>
+          <input type="email" name="email" placeholder="email" required>
+          <br><br>
+          <button class="btn" type="submit">add admin</button>
+        </form>
+
+  <hr>
+
+  <h1>All Admins</h1>
+  <table border="1">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+    <% admins.forEach(admin => { %>
+      <tr>
+        <td><%= admin.name %></td>
+        <td><%= admin.email %></td>
+        <td>
+          <form action="/deleteAdmin/<%= admin.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button class="btnn" type="submit" onclick="return confirm('Delete this admin?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

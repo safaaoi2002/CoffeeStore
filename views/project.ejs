@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/project.css">
+    
+    <title>Online coffee store</title>
+</head>
+<body>
+    <nav style="background-color:  #654128; padding: 10px; display: flex; justify-content: flex-start;">
+        <a href="/cart" > Cart</a>
+        <a href="/" > Home</a>
+        <a href="/weather"class="btn">Weather</a>
+    </nav>
+      
+<br>
+    <header>☕ COFFEE STORE ☕ </header>
+    
+    <div class="container">
+        <div class="SearchBox">
+            
+            <input type="text" id="search" placeholder="Find your favorite coffee...">
+            <!-- <button class="srchbtn" >search</button> -->
+            <br><br>
+        </div>
+          <br>
+          <div id="productList"></div>
+
+        <div class="sale">
+            <label for="">اشترك الآن للحصول على كوبون خصم 10% على اول طلب لك"</label>
+            <br>
+            <input type="email" placeholder="enter your email"required  >
+            <br>
+            <button class="srchbtn">subscribe</button>
+        </div>
+    </div>
+    
+<div>
+    <p>follow us on our social media accounts below :</p>
+    <br>
+    <a href="https://www.instagram.com/safaa.irshedat02?igsh=NGdiMzJzMWRhcjU3"target=_blank>instagram</a>
+    <br>
+    <a href="https://www.instagram.com/safaa.irshedat02?igsh=NGdiMzJzMWRhcjU3"target=_blank>facebook</a>
+    
+</div>
+
+<script>
+    const searchInput = document.getElementById("search");
+    // const searchButton = document.querySelector(".srchbtn");
+
+    function loadProducts() {
+        fetch('/items')
+            .then(res => res.json())
+            .then(data => {
+                const productList = document.getElementById("productList");
+                productList.innerHTML = "";
+
+                data.forEach(item => {
+                    const div = document.createElement("div");
+                    div.classList.add("product");
+
+                    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                    const found = cart.find(c => c.product_name === item.name);
+                    const quantity = found ? found.quantity : 0;
+
+                    div.innerHTML = `
+                     <img src="${item.image}" width="150"><br>
+                     <h3>${item.name}</h3>
+                     <select>
+                         <option value="no_suger">no suger</option>
+                         <option value="normal_suger">normal suger</option>
+                         <option value="extra_suger">extra suger</option>
+                     </select><br>
+                     <p>price: ${item.price} JD</p>
+                     <p id="qty-${item.name.replace(/\s+/g, '')}">Quantity: ${quantity}</p>
+                     <button class="btn" onclick="addToCart('${item.name}', '${item.price}')">Add to Cart</button>
+                    `;
+
+                    productList.appendChild(div);
+                });
+            });
+    }
+
+    // searchButton.addEventListener("click", function () {
+    //     const searchTerm = searchInput.value.trim().toLowerCase();
+    //     const productElements = document.querySelectorAll("#productList .product");
+
+    //     productElements.forEach(product => {
+    //         const productName = product.querySelector("h3").textContent.toLowerCase();
+    //         product.style.display = productName.includes(searchTerm) ? "block" : "none";
+    //     });
+    // });
+    searchInput.addEventListener("input", function () {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const productElements = document.querySelectorAll("#productList .product");
+
+    productElements.forEach(product => {
+        const productName = product.querySelector("h3").textContent.toLowerCase();
+        product.style.display = productName.startsWith(searchTerm) ? "block" : "none";
+        });
+    });
+
+    loadProducts();
+
+    function addToCart(name, price) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existing = cart.find(item => item.product_name === name);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ product_name: name, product_price: price, quantity: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        const id = "qty-" + name.replace(/\s+/g, '');
+        const qtyElement = document.getElementById(id);
+        if (qtyElement) {
+            qtyElement.innerText = `Quantity: ${existing ? existing.quantity : 1}`;
+        }
+        alert("Item added to cart");
+    }
+</script>
+
+</body>
+</html>
